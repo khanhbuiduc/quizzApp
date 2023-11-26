@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quizz_app/pages/home/home_page_header.dart';
+import 'package:quizz_app/screen/home/home_page_header.dart';
 import 'package:quizz_app/widgets/image_box/image_box_left.dart';
 
 class MyHomePage extends StatefulWidget {

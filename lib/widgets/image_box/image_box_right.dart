@@ -27,7 +27,6 @@ class ImageBoxRight extends StatelessWidget {
                   color: Colors.white, fontWeight: FontWeight.w700),
             ),
           ),
-
           Positioned(
             top: 0,
             right: -4,

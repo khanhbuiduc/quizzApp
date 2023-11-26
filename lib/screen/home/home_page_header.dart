@@ -10,9 +10,9 @@ class HomePageHeader extends StatelessWidget {
     return Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        padding: const EdgeInsets.fromLTRB(10, 5, 10, 15),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
               begin: Alignment.centerLeft,
@@ -44,9 +44,9 @@ class HomePageHeader extends StatelessWidget {
                   child: Text(
                 "Quiz",
                 style: TextStyle(
-                  fontSize: 22,
-                  color: Colors.white,
-                ),
+                    fontSize: 22,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700),
               )),
               SizedBox(width: 100, child: ImageBoxRight(title: "TinhBC")),
             ],

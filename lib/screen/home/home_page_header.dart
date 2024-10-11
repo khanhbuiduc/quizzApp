@@ -1,9 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:quizz_app/widgets/image_box/image_box_left.dart';
 import 'package:quizz_app/widgets/image_box/image_box_right.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePageHeader extends StatelessWidget {
-  const HomePageHeader({super.key});
+class HomePageHeader extends StatefulWidget {
+  HomePageHeader({super.key});
+
+  @override
+  State<HomePageHeader> createState() => new _HomePageHeaderState();
+}
+
+class _HomePageHeaderState extends State<HomePageHeader> {
+  int total = 0;
+  @override
+  void initState() {
+    super.initState();
+    getLocal();
+  }
+
+  getLocal() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    total = int.parse(prefs.getString("total") ?? "0");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,23 +50,23 @@ class HomePageHeader extends StatelessWidget {
               ),
             ],
           ),
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
                 width: 100,
-                child: ImageBoxLeft(title: "3,274"),
+                child: ImageBoxLeft(title: '$total'),
               ),
-              SizedBox(
+              const SizedBox(
                   child: Text(
-                "Quiz",
+                "Math Games",
                 style: TextStyle(
                     fontSize: 22,
                     color: Colors.white,
                     fontWeight: FontWeight.w700),
               )),
-              SizedBox(width: 100, child: ImageBoxRight(title: "TinhBC")),
+              const SizedBox(width: 100, child: ImageBoxRight(title: "Guest")),
             ],
           ),
         ));

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:quizz_app/screen/home/home_page.dart';
-import 'package:quizz_app/screen/home/home_page_header.dart';
 import 'package:quizz_app/screen/auth/authScreen.dart';
 
 void main() {
@@ -12,11 +11,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Math app',
         theme: ThemeData().copyWith(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+          // useMaterial3: true,
         ),
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/dashboard',
+        routes: <String, WidgetBuilder>{
+          '/dashboard': (BuildContext context) => const MyHomePage(),
+        },
         home: const MyHomePage());
   }
 }

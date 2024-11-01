@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:quizz_app/provider/score.provider.dart';
 import 'package:quizz_app/screen/home/home_page.dart';
-import 'package:quizz_app/screen/auth/authScreen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ScoreProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

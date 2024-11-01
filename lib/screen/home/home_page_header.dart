@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:quizz_app/provider/score.provider.dart';
 import 'package:quizz_app/widgets/image_box/image_box_left.dart';
 import 'package:quizz_app/widgets/image_box/image_box_right.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePageHeader extends StatefulWidget {
   HomePageHeader({super.key});
@@ -15,16 +16,12 @@ class _HomePageHeaderState extends State<HomePageHeader> {
   @override
   void initState() {
     super.initState();
-    getLocal();
-  }
-
-  getLocal() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    total = int.parse(prefs.getString("total") ?? "0");
   }
 
   @override
   Widget build(BuildContext context) {
+    final scoreProvider = Provider.of<ScoreProvider>(context);
+
     return Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -56,17 +53,18 @@ class _HomePageHeaderState extends State<HomePageHeader> {
             children: [
               SizedBox(
                 width: 100,
-                child: ImageBoxLeft(title: '$total'),
+                child: ImageBoxLeft(title: '${scoreProvider.score}'),
               ),
               const SizedBox(
                   child: Text(
                 "Math Games",
                 style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 18,
                     color: Colors.white,
                     fontWeight: FontWeight.w700),
               )),
-              const SizedBox(width: 100, child: ImageBoxRight(title: "Guest")),
+              const SizedBox()
+              // const SizedBox(width: 100, child: ImageBoxRight(title: "Guest")),
             ],
           ),
         ));

@@ -17,6 +17,46 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
+  List<Category> categoriesList = [
+    Category(
+      image: "assets/icons/plus.png",
+      link: "link-1",
+      title: "",
+      function: (context) {
+        dialogCustom(context, content: PlusScreen(type: "plus"));
+      },
+    ),
+    Category(
+      image: "assets/icons/minus.png",
+      link: "link-1",
+      title: "",
+      function: (context) {
+        dialogCustom(context, content: PlusScreen(type: "minus"));
+      },
+    ),
+    Category(
+        image: "assets/icons/multiplication.png",
+        link: "link-1",
+        title: "",
+        function: (context) {
+          dialogCustom(context, content: PlusScreen(type: "multiplication"));
+        }),
+    Category(
+        image: "assets/icons/divide.png",
+        link: "link-1",
+        title: "",
+        function: (context) {
+          dialogCustom(context, content: PlusScreen(type: "divide"));
+        }),
+    Category(
+        image: "assets/icons/caculations.png",
+        link: "link-1",
+        title: "",
+        function: (context) {
+          dialogCustom(context, content: PlusScreen(type: "calculations"));
+        }),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,8 +99,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                height: MediaQuery.of(context).size.width * 0.5,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                height: MediaQuery.of(context).size.width *
+                    0.5 *
+                    categoriesList.length *
+                    0.5,
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, // Number of columns in the grid
@@ -73,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     // Build each grid item
                     return GestureDetector(
                       onTap: () {
-                        dialogCustom(context, content: PlusScreen());
+                        categoriesList[index].function(context);
                       },
                       child: Container(
                         child: Stack(
@@ -84,18 +128,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                 width: MediaQuery.of(context).size.width,
                                 height: MediaQuery.of(context).size.width * 0.5,
                                 decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 134, 60, 220),
+                                  color: Color.fromARGB(255, 209, 124, 251)
+                                      .withOpacity(0.5),
                                   borderRadius: BorderRadius.circular(40),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: const Color.fromARGB(
-                                              255, 176, 59, 234)
-                                          .withOpacity(0.5),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: const Offset(0, 3),
-                                    ),
-                                  ],
+                                  // boxShadow: [
+                                  //   BoxShadow(
+                                  //     color: Color.fromARGB(255, 209, 124, 251)
+                                  //         .withOpacity(0.5),
+                                  //     spreadRadius: 5,
+                                  //     blurRadius: 7,
+                                  //     offset: const Offset(4, 3),
+                                  //   ),
+                                  // ],
                                 ),
                               ),
                             ),
@@ -135,10 +179,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
-  List<Category> categoriesList = [
-    Category(image: "assets/icons/clock.png", link: "link-1", title: ""),
-    Category(image: "assets/icons/hourglass.png", link: "link-1", title: ""),
-    Category(image: "assets/icons/nontime.png", link: "link-1", title: ""),
-  ];
 }

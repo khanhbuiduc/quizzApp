@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:quizz_app/event_bus/event_bus.dart';
+import 'package:quizz_app/provider/score.provider.dart';
 import 'package:quizz_app/widgets/header/header.dart';
 import 'dart:math';
 import 'dart:async';
@@ -7,7 +10,8 @@ import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PlusScreen extends StatefulWidget {
-  PlusScreen({super.key});
+  final String type;
+  PlusScreen({super.key, this.type = "plus"});
 
   @override
   State<PlusScreen> createState() => new _PlusScreenState();
@@ -36,7 +40,6 @@ class _PlusScreenState extends State<PlusScreen> {
     Colors.pink,
     Colors.teal,
   ];
-
   @override
   void initState() {
     super.initState();
@@ -48,6 +51,7 @@ class _PlusScreenState extends State<PlusScreen> {
   }
 
   void startTimer() {
+    if (!mounted) return;
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (remainingTime > 0) {
@@ -71,7 +75,7 @@ class _PlusScreenState extends State<PlusScreen> {
           backgroundColor: const Color.fromARGB(
               255, 213, 46, 255), // Custom background color
 
-          title: Text('Time\'s Up!',
+          title: const Text('Time\'s Up!',
               style: TextStyle(
                   color: Color.fromARGB(
                       255, 238, 250, 57))), // Custom title text color
@@ -79,7 +83,7 @@ class _PlusScreenState extends State<PlusScreen> {
             height: 100,
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
@@ -107,12 +111,12 @@ class _PlusScreenState extends State<PlusScreen> {
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
               onPressed: () async {
-                // Navigator.of(context).pop(); // Close the dialog
-                Navigator.popAndPushNamed(context, "/dashboard");
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                int total = int.parse(prefs.getString("total") ?? "0");
-                total = total + 1;
-                await prefs.setString("total", '$total');
+                final scoreProvider =
+                    Provider.of<ScoreProvider>(context, listen: false);
+                int score = scoreProvider.score + 1;
+                scoreProvider.verify(score);
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
               },
             ),
           ],
@@ -123,9 +127,45 @@ class _PlusScreenState extends State<PlusScreen> {
 
   void generateQuiz() {
     Random random = Random();
-    int num1 = random.nextInt(50) + 1; // Random number between 1 and 50
-    int num2 = random.nextInt(50) + 1; // Random number between 1 and 50
+    int num1 = random.nextInt(10) + 1; // Random number between 1 and 50
+    int num2 = random.nextInt(10) + 1; // Random number between 1 and 50
     correctAnswer = num1 + num2; // Calculate correct answer
+    String _operation = '';
+    final operations = ['+', '-', 'x'];
+    _operation = operations[random.nextInt(operations.length)];
+
+    switch (widget.type) {
+      case "plus":
+        correctAnswer = num1 + num2; // Calculate correct answer=
+        break;
+      case "minus":
+        correctAnswer = num1 - num2;
+        break;
+      case "multiplication":
+        correctAnswer = num1 * num2;
+        break;
+      case "divide":
+        num2 = random.nextInt(9) + 1; // Avoid zero division
+        num1 =
+            num2 * (random.nextInt(10) + 1); // Ensure num1 is divisible by num2
+        correctAnswer = num1 ~/ num2;
+        break;
+      case "calculations":
+        int _calculateAnswer() {
+          switch (_operation) {
+            case '+':
+              return num1 + num2;
+            case '-':
+              return num1 - num2;
+            case 'x':
+              return num1 * num2;
+            default:
+              return 0;
+          }
+        }
+        correctAnswer = _calculateAnswer();
+        break;
+    }
 
     // Generate incorrect answers
     answerOptions = [
@@ -140,7 +180,7 @@ class _PlusScreenState extends State<PlusScreen> {
 
     // If answer options are less than 4 due to duplicates, regenerate incorrect answers
     while (answerOptions.length < 4) {
-      answerOptions.add(random.nextInt(100) + 1);
+      answerOptions.add(random.nextInt(30) + 1);
       answerOptions = answerOptions.toSet().toList();
     }
 
@@ -148,7 +188,25 @@ class _PlusScreenState extends State<PlusScreen> {
     answerOptions.shuffle();
 
     setState(() {
-      equation = '$num1 + $num2 = ?';
+      switch (widget.type) {
+        case "plus":
+          equation = '$num1 + $num2 = ?';
+          break;
+        case "minus":
+          equation = '$num1 - $num2 = ?';
+          break;
+        case "multiplication":
+          equation = '$num1 * $num2 = ?';
+          break;
+        case "divide":
+          num2 = random.nextInt(10) + 1; // Avoid zero division
+          num1 = num2 *
+              (random.nextInt(10) + 1); // Ensure num1 is divisible by num2
+          equation = '$num1 / $num2 = ?';
+          break;
+        default:
+          equation = '$num1 $_operation $num2 =?';
+      }
     });
   }
 

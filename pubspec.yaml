@@ -16,6 +16,7 @@ dependencies:
   provider: ^6.1.2
   event_bus: ^2.0.1
   flutter_launcher_icons: ^0.14.1
+  math_expressions: ^2.6.0
 
 flutter_icons:
   android: true

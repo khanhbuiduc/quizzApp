@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:quizz_app/screen/home/categories_data.dart';
 import 'package:quizz_app/screen/home/home_page_header.dart';
 import 'package:quizz_app/screen/home/plus_screen.dart';
+import 'package:quizz_app/widgets/connect_box/connect_box.dart';
 import 'package:quizz_app/widgets/dialog/dialog_custom.dart';
+import 'package:quizz_app/widgets/soguko_game/soguko_game.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -18,6 +20,20 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Category> categoriesList = [
+    Category(
+        image: "assets/icons/caculations.png",
+        link: "link-1",
+        title: "",
+        function: (context) {
+          dialogCustom(context, content: PlusScreen(type: "calculations"));
+        }),
+    Category(
+        image: "assets/icons/sudoku.png",
+        link: "link-1",
+        title: "",
+        function: (context) {
+          dialogCustom(context, content: SudokuGameScreen());
+        }),
     Category(
       image: "assets/icons/plus.png",
       link: "link-1",
@@ -47,13 +63,6 @@ class _MyHomePageState extends State<MyHomePage> {
         title: "",
         function: (context) {
           dialogCustom(context, content: PlusScreen(type: "divide"));
-        }),
-    Category(
-        image: "assets/icons/caculations.png",
-        link: "link-1",
-        title: "",
-        function: (context) {
-          dialogCustom(context, content: PlusScreen(type: "calculations"));
         }),
   ];
 
@@ -101,10 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                height: MediaQuery.of(context).size.width *
-                    0.5 *
-                    categoriesList.length *
-                    0.5,
+                height: MediaQuery.of(context).size.height,
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, // Number of columns in the grid

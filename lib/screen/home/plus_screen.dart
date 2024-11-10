@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:quizz_app/event_bus/event_bus.dart';
-import 'package:quizz_app/provider/score.provider.dart';
-import 'package:quizz_app/widgets/header/header.dart';
+import 'package:math_games/event_bus/event_bus.dart';
+import 'package:math_games/provider/score.provider.dart';
+import 'package:math_games/widgets/header/header.dart';
 import 'dart:math';
 import 'dart:async';
 
@@ -230,10 +230,17 @@ class _PlusScreenState extends State<PlusScreen> {
     super.dispose();
   }
 
+  bool isTablet(BuildContext context) {
+    double deviceWidth = MediaQuery.of(context).size.width;
+    return deviceWidth >= 600; // Typically, >=600 is considered a tablet
+  }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
+    bool tablet = isTablet(context);
     return PopScope(
       canPop: true,
       child: Scaffold(
@@ -298,14 +305,14 @@ class _PlusScreenState extends State<PlusScreen> {
                   height: 50,
                 ),
                 SizedBox(
-                  height: width,
+                  height: 150 * 2 + 10,
                   child: GridView.builder(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, // Number of columns
-                      crossAxisSpacing: 10, // Spacing between columns
-                      mainAxisSpacing: 10, // Spacing between rows
-                    ),
+                            crossAxisCount: 2, // Number of columns
+                            crossAxisSpacing: 10, // Spacing between columns
+                            mainAxisSpacing: 10, // Spacing between rows
+                            mainAxisExtent: 150),
                     itemCount: answerOptions.length, // Number of items
                     itemBuilder: (context, index) {
                       int answer = answerOptions[index];

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quizz_app/provider/score.provider.dart';
-import 'package:quizz_app/widgets/header/header.dart';
-import 'package:quizz_app/widgets/soguko_game/goku_cell.dart';
-import 'package:quizz_app/widgets/soguko_game/sogoku_generator.dart';
+import 'package:math_games/provider/score.provider.dart';
+import 'package:math_games/widgets/header/header.dart';
+import 'package:math_games/widgets/soguko_game/goku_cell.dart';
+import 'package:math_games/widgets/soguko_game/sogoku_generator.dart';
 
 class SudokuGameScreen extends StatefulWidget {
   @override
@@ -13,6 +13,7 @@ class SudokuGameScreen extends StatefulWidget {
 class _SudokuGameScreenState extends State<SudokuGameScreen> {
   SudokuGenerator generator = SudokuGenerator();
   List<List<int>> puzzle = [];
+  List<List<int>> defaultPuzzle = [];
   // Update board when the user inputs a number
   void updateCell(int row, int col, int value) {
     setState(() {
@@ -59,11 +60,10 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
 
   void _resetGame() {
     generator.solveSudoku(); // Generates a full solution
-    generator.board.forEach((row) => print(row));
     puzzle =
         generator.generatePuzzle(40); // Remove 40 cells for a medium puzzle
-    print("\nGenerated Puzzle:");
-    puzzle.forEach((row) => print(row));
+
+    defaultPuzzle = puzzle.map((row) => List<int>.from(row)).toList();
     setState(() {});
   }
 
@@ -102,9 +102,9 @@ class _SudokuGameScreenState extends State<SudokuGameScreen> {
                     int row = index ~/ 9;
                     int col = index % 9;
                     return SudokuCell(
-                      value: puzzle[row][col],
-                      onChanged: (val) => updateCell(row, col, val),
-                    );
+                        value: puzzle[row][col],
+                        onChanged: (val) => updateCell(row, col, val),
+                        isEdit: defaultPuzzle[row][col] == 0);
                   },
                 ),
               ],

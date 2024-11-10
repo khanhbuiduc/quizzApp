@@ -1,8 +1,8 @@
-name: quizz_app
-description: A new Flutter project.
+name: math_games
+description: Math games.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+1
+version: 1.0.0+5
 
 environment:
   sdk: ">=3.1.0 <4.0.0"
@@ -18,10 +18,15 @@ dependencies:
   flutter_launcher_icons: ^0.14.1
   math_expressions: ^2.6.0
 
-flutter_icons:
-  android: true
+flutter_launcher_icons:
+  android: "launcher_icon"
   ios: true
   image_path: "assets/logo.png"
+  remove_alpha_ios: true
+  min_sdk_android: 21
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/logo.png"
+  adaptive_icon_foreground_inset: 20
 
 dev_dependencies:
   flutter_svg: ^2.0.5

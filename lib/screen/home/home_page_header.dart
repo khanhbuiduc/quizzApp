@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quizz_app/provider/score.provider.dart';
-import 'package:quizz_app/widgets/image_box/image_box_left.dart';
-import 'package:quizz_app/widgets/image_box/image_box_right.dart';
+import 'package:math_games/provider/score.provider.dart';
+import 'package:math_games/widgets/image_box/image_box_left.dart';
+import 'package:math_games/widgets/image_box/image_box_right.dart';
 
 class HomePageHeader extends StatefulWidget {
   HomePageHeader({super.key});

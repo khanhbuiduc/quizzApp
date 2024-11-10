@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:quizz_app/widgets/button/border_box.dart';
-import 'package:quizz_app/widgets/connect_box/box_widget.dart';
-import 'package:quizz_app/widgets/connect_box/line_painter.dart';
+import 'package:math_games/widgets/button/border_box.dart';
+import 'package:math_games/widgets/connect_box/box_widget.dart';
+import 'package:math_games/widgets/connect_box/line_painter.dart';
 import 'package:math_expressions/math_expressions.dart'; // For parsing expressions
 
 class ConnectBoxesScreen extends StatefulWidget {

@@ -20,3 +20,36 @@ dialogCustom(context, {required Widget content}) {
     },
   );
 }
+
+void show2024Win(BuildContext context, void Function() restart) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Container(
+          padding: EdgeInsets.all(16),
+          height: 200,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Congratulations you won this game!",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              Text("Do you want to play again?"),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: restart,
+                child: Text("Restart"),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}

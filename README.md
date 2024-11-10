@@ -1,4 +1,4 @@
-# quizz_app
+# math_games
 
 A new Flutter project.
 

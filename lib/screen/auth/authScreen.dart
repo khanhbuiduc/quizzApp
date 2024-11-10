@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:quizz_app/widgets/buttons/icon_elevated_Button.dart';
-import 'package:quizz_app/widgets/input/input_custome.dart';
+import 'package:math_games/widgets/buttons/icon_elevated_Button.dart';
+import 'package:math_games/widgets/input/input_custome.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
